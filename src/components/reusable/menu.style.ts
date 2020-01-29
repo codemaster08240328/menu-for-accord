@@ -2,6 +2,35 @@ import styled from 'styled-components'
 
 const MenuWrapper = styled.div`
   padding: 10px 0;
+  transform-origin: top;
+
+  &.open--menu {
+    display: block;
+    animation: fade-in 0.5s;
+  }
+
+  &.close--menu {
+    display: none;
+    animation: fade-out 0.5s;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
 `
 
 const LoaderWrapper = styled.div`

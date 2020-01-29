@@ -4,6 +4,7 @@ import { MenuWrapper, LoaderWrapper, SpinnerWrapper } from './menu.style'
 interface Props<T> {
   items: T[]
   isFetching: boolean
+  openMenu: boolean
   onChange: (item: T) => void
   optionRender: (item: T) => JSX.Element
   noDataOption: () => JSX.Element
@@ -26,11 +27,12 @@ const Menu: IMenu = ({
   isFetching,
   onChange,
   optionRender,
-  className,
-  noDataOption
+  noDataOption,
+  openMenu
 }) => {
+  console.log(openMenu)
   return (
-    <MenuWrapper className={className}>
+    <MenuWrapper className={openMenu ? 'open--menu' : 'close--menu'}>
       {isFetching && (
         <LoaderWrapper>
           <SpinnerComponent />

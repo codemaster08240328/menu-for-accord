@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Menu from '../reusable/menu'
 import {
   OwnerMenuWrapper,
@@ -29,8 +29,6 @@ const Input: FC<InputProps> = ({ value, onChange, onFocus }) => {
   )
 }
 
-let isMounted = false
-
 const OwnerMenu: FC = () => {
   const [users, setUsers] = useState<User[]>([])
   const [openMenu, setOpenMenu] = useState(false)
@@ -38,13 +36,31 @@ const OwnerMenu: FC = () => {
   const [searchName, setSearchName] = useState('')
   const [selectedUser, setSelectedUser] = useState<User | undefined>()
 
-  if (openMenu && !isMounted) {
-    getUsers().then((resp) => {
-      isMounted = true
-      setUsers(resp)
-      setIsFetching(false)
-    })
+  const wrapperRef = useRef<HTMLDivElement>(null)
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      wrapperRef &&
+      wrapperRef.current &&
+      !wrapperRef.current.contains(event.target as Node)
+    ) {
+      setOpenMenu(false)
+    }
   }
+
+  useEffect(() => {
+    if (openMenu) {
+      getUsers().then((resp) => {
+        setUsers(resp)
+        setIsFetching(false)
+      })
+    }
+
+    document.addEventListener('click', handleClickOutside, true)
+    return () => {
+      document.removeEventListener('click', handleClickOutside, true)
+    }
+  }, [openMenu])
 
   const getFilteredUser = () => {
     return users.filter((item) =>
@@ -66,24 +82,22 @@ const OwnerMenu: FC = () => {
   console.log(selectedUser)
 
   return (
-    <OwnerMenuWrapper>
+    <OwnerMenuWrapper ref={wrapperRef}>
       <Input
         value={searchName}
         onChange={(value) => setSearchName(value)}
         onFocus={() => setOpenMenu(true)}
       />
-
-      {openMenu && (
-        <Menu
-          optionRender={(user: User) => renderOption(user)}
-          isFetching={isFetching}
-          items={getFilteredUser()}
-          onChange={(user: User) => setSelectedUser(user)}
-          noDataOption={() => (
-            <OptionWrapper>There is no user matched.</OptionWrapper>
-          )}
-        />
-      )}
+      <Menu
+        openMenu={openMenu}
+        optionRender={(user: User) => renderOption(user)}
+        isFetching={isFetching}
+        items={getFilteredUser()}
+        onChange={(user: User) => setSelectedUser(user)}
+        noDataOption={() => (
+          <OptionWrapper>There is no user matched.</OptionWrapper>
+        )}
+      />
     </OwnerMenuWrapper>
   )
 }

@@ -59,6 +59,17 @@ const OptionWrapper = styled.div`
     cursor: pointer;
     background-color: ${(props) =>
       props.defaultChecked ? Colors.BG5 : Colors.BG3};
+
+    animation: fade-in 0.5s;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0.7;
+    }
+    to {
+      opacity: 1;
+    }
   }
 `
 
