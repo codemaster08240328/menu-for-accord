@@ -17,6 +17,9 @@ export enum Colors {
   TX1 = '#1a2533',
   TX2 = '#324964',
   TX3 = '#6b85a3',
+  TX4 = '#8299b6',
+  TX5 = '#192533',
+  TX6 = '#60789a',
 
   // Function
   Positive = '#36B289',
@@ -33,7 +36,9 @@ export enum Colors {
   // Background
   BG1 = '#d1e3f8',
   BG2 = '#e8f1fb',
-  BG3 = '#f5f9ff'
+  BG3 = '#f5f9ff',
+  BG4 = '#deecfc',
+  BG5 = '#3284e1'
 }
 
 export enum FontSizes {
@@ -44,5 +49,7 @@ export enum FontSizes {
 
 export enum UI {
   BORDER_RADIUS = 'border-radius: 2px;',
-  BOX_SHADOW = 'box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);'
+  BORDER_RADIUS_BIG = 'border-radius: 4px;',
+  BOX_SHADOW = 'box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);',
+  MENU_BOX_SHADOW = 'box-shadow: 0px 4px 12px rgba(107, 133, 163, 0.06), 0px 4px 16px rgba(50, 132, 225, 0.16);'
 }
