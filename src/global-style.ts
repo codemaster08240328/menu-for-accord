@@ -2,6 +2,8 @@ import { createGlobalStyle } from 'styled-components'
 import { FontWeights, Colors } from './lib/style-guide'
 
 export const GlobalStyle = createGlobalStyle`
+  @import url('https://rsms.me/inter/inter.css');
+  
   * {
     box-sizing: border-box;
     margin: 0;
@@ -26,5 +28,9 @@ export const GlobalStyle = createGlobalStyle`
     display: flex;
     min-height: 100vh;
     background: ${Colors.BG3};
+  }
+
+  input, span, label, div {
+    font-family: 'Inter', sans-serif;
   }
 `
